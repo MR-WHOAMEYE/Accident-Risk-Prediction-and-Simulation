@@ -22,7 +22,42 @@ Implemented the core ML pipeline including TraCI-based data collection, feature 
 
 ### Model Architecture
 The system uses a modular architecture consisting of a SUMO Simulation Layer that provides the traffic network with roads, intersections, and mixed vehicles, a TraCI Data Collector for real-time vehicle feature extraction (speed, TTC, acceleration), a Feature Engineering Pipeline that creates rolling statistics, interaction terms, and risk labeling, an ML Model Trainer that trains Random Forest, XGBoost, and Neural Network classifiers, and a Risk Predictor that performs batch and real-time risk probability scoring.
-
+```mermaid
+flowchart TB
+    subgraph Input["🚗 Data Source"]
+        SUMO["SUMO Traffic Simulation"]
+    end
+    
+    subgraph Collection["📡 Data Collection"]
+        TraCI["TraCI Interface"]
+        DC["Data Collector"]
+    end
+    
+    subgraph Processing["⚙️ Feature Engineering"]
+        FE["Feature Engineering"]
+        RS["Rolling Statistics"]
+        IT["Interaction Terms"]
+    end
+    
+    subgraph ML["🤖 ML Models"]
+        RF["Random Forest"]
+        XGB["XGBoost"]
+        NN["Neural Network"]
+    end
+    
+    subgraph Output["📊 Prediction"]
+        RP["Risk Predictor"]
+        SCORE["Risk Score 0-1"]
+    end
+    
+    SUMO --> TraCI --> DC --> FE
+    FE --> RS --> ML
+    FE --> IT --> ML
+    RF --> RP
+    XGB --> RP
+    NN --> RP
+    RP --> SCORE
+```
 **Key Components:**
 | Component | Description |
 |-----------|-------------|
@@ -48,7 +83,47 @@ Implemented the accident prevention simulation with safe intervention logic, zon
 
 ### Model Architecture
 The system uses a modular architecture consisting of an ML-Based Risk Monitoring Layer that performs continuous real-time prediction using trained models, a High-Risk Zone Identification Engine that uses spatial grid aggregation and intersection-level risk analysis, an Intelligent Intervention System that applies safe, graduated interventions such as speed reduction and lane advisories based on risk thresholds, and an Interactive Visualization Dashboard that displays risk heatmaps, temporal trends, before/after comparison reports, and zone statistics.
-
+```mermaid
+flowchart TB
+    subgraph Input["📡 Real-time Data"]
+        SIM["SUMO Simulation"]
+        VEH["Vehicle States"]
+    end
+    
+    subgraph Prediction["🤖 Risk Monitoring"]
+        ML["Trained ML Model"]
+        RISK["Risk Probability"]
+    end
+    
+    subgraph Analysis["🗺️ Zone Analysis"]
+        GRID["Spatial Grid"]
+        ZONE["High-Risk Zones"]
+        INT["Intersection Analysis"]
+    end
+    
+    subgraph Prevention["🛡️ Intervention System"]
+        CTRL["Prevention Controller"]
+        SPEED["Speed Reduction"]
+        BRAKE["Safe Braking"]
+    end
+    
+    subgraph Output["📊 Dashboard"]
+        HEAT["Risk Heatmaps"]
+        COMP["Before/After Comparison"]
+        REPORT["Reports"]
+    end
+    
+    SIM --> VEH --> ML --> RISK
+    RISK --> GRID --> ZONE
+    RISK --> INT
+    ZONE --> CTRL
+    RISK --> CTRL
+    CTRL --> SPEED
+    CTRL --> BRAKE
+    ZONE --> HEAT
+    RISK --> COMP
+    ZONE --> REPORT
+```
 **Key Components:**
 | Component | Description |
 |-----------|-------------|
