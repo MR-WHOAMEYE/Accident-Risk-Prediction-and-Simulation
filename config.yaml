@@ -1,0 +1,89 @@
+# Configuration file for ML-Based Road Accident Risk Prediction System
+
+# SUMO Configuration
+sumo:
+  gui: false  # Set to true to visualize simulation
+  step_length: 1.0  # Simulation step in seconds
+  network_file: "sumo_network/downtown.net.xml"
+  route_file: "sumo_network/downtown.rou.xml"
+  config_file: "sumo_network/downtown.sumocfg"
+  simulation_duration: 3600  # seconds (1 hour)
+  num_scenarios: 15  # Number of different simulation runs
+
+# Data Collection
+data_collection:
+  output_dir: "data"
+  features:
+    - position
+    - speed
+    - acceleration
+    - lane_position
+    - lane_changes
+    - ttc  # Time to collision
+    - pedestrian_proximity
+    - traffic_density
+    - signal_state
+    - vehicle_type
+  sampling_interval: 1  # seconds
+
+# Risk Labeling Thresholds (for synthetic labels)
+risk_thresholds:
+  high_risk:
+    min_conditions: 2  # At least 2 conditions must be met
+    conditions:
+      speed_variance: 15.0  # m/s^2
+      ttc_threshold: 2.0  # seconds
+      pedestrian_distance: 5.0  # meters
+      congestion_level: 0.7  # 0-1 scale
+      sudden_deceleration: -4.0  # m/s^2
+      lane_change_frequency: 3  # per minute
+  
+  medium_risk:
+    min_conditions: 1
+    conditions:
+      speed_variance: 10.0
+      ttc_threshold: 3.0
+      pedestrian_distance: 10.0
+      congestion_level: 0.5
+      sudden_deceleration: -3.0
+      lane_change_frequency: 2
+
+# Machine Learning
+ml:
+  test_size: 0.2
+  random_state: 42
+  models:
+    random_forest:
+      n_estimators: 100
+      max_depth: 20
+      min_samples_split: 5
+    xgboost:
+      n_estimators: 100
+      max_depth: 10
+      learning_rate: 0.1
+    neural_network:
+      hidden_layers: [128, 64, 32]
+      epochs: 50
+      batch_size: 32
+  
+  feature_engineering:
+    rolling_window: 10  # seconds
+    spatial_grid_size: 50  # meters
+
+# High-Risk Zone Analysis
+zone_analysis:
+  grid_size: 25  # meters for heatmap
+  min_samples_per_zone: 10
+  top_n_zones: 10  # Number of highest risk zones to report
+
+# Visualization
+visualization:
+  heatmap_resolution: 100
+  colormap: "YlOrRd"
+  figure_size: [12, 8]
+
+# Output Directories
+output:
+  models: "models"
+  visualizations: "outputs/visualizations"
+  reports: "outputs/reports"

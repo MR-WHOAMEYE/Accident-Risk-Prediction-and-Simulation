@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Vehicle type definitions and traffic routes -->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    
+    <!-- Vehicle Type Definitions -->
+    <vType id="car" accel="2.6" decel="4.5" sigma="0.5" length="5.0" minGap="2.5" maxSpeed="50.0" guiShape="passenger" color="1,1,0"/>
+    <vType id="bus" accel="1.2" decel="4.0" sigma="0.3" length="12.0" minGap="3.0" maxSpeed="30.0" guiShape="bus" color="0,1,1"/>
+    <vType id="auto" accel="2.0" decel="4.0" sigma="0.6" length="3.5" minGap="2.0" maxSpeed="40.0" guiShape="delivery" color="1,0.5,0"/>
+    <vType id="bike" accel="1.5" decel="3.0" sigma="0.8" length="1.8" minGap="1.0" maxSpeed="20.0" guiShape="bicycle" color="0,1,0"/>
+    <vType id="truck" accel="1.0" decel="3.5" sigma="0.4" length="8.0" minGap="3.5" maxSpeed="35.0" guiShape="truck" color="0.5,0.5,0.5"/>
+    
+    <!-- Route Definitions -->
+    <!-- North-South routes -->
+    <route id="route_ns" edges="n_entry_to_north north_to_n_entry"/>
+    <route id="route_ns_through" edges="n_entry_to_north n_to_center center_to_s south_to_s_entry"/>
+    <route id="route_sn_through" edges="s_entry_to_south s_to_center center_to_n north_to_n_entry"/>
+    
+    <!-- East-West routes -->
+    <route id="route_ew_through" edges="e_entry_to_east e_to_center center_to_w west_to_w_entry"/>
+    <route id="route_we_through" edges="w_entry_to_west w_to_center center_to_e east_to_e_entry"/>
+    
+    <!-- Complex routes with turns -->
+    <route id="route_n_to_e" edges="n_entry_to_north n_to_center center_to_e east_to_e_entry"/>
+    <route id="route_n_to_w" edges="n_entry_to_north n_to_center center_to_w west_to_w_entry"/>
+    <route id="route_s_to_e" edges="s_entry_to_south s_to_center center_to_e east_to_e_entry"/>
+    <route id="route_s_to_w" edges="s_entry_to_south s_to_center center_to_w west_to_w_entry"/>
+    <route id="route_e_to_n" edges="e_entry_to_east e_to_center center_to_n north_to_n_entry"/>
+    <route id="route_e_to_s" edges="e_entry_to_east e_to_center center_to_s south_to_s_entry"/>
+    <route id="route_w_to_n" edges="w_entry_to_west w_to_center center_to_n north_to_n_entry"/>
+    <route id="route_w_to_s" edges="w_entry_to_west w_to_center center_to_s south_to_s_entry"/>
+    
+    <!-- Routes through northeast intersection -->
+    <route id="route_ne_complex" edges="n_entry_to_north north_to_ne ne_to_east east_to_e_entry"/>
+    <route id="route_en_complex" edges="e_entry_to_east east_to_ne ne_to_north north_to_n_entry"/>
+    
+    <!-- Traffic Flows - Peak Hour (High Congestion) -->
+    <!-- Cars - 70% of traffic -->
+    <flow id="flow_car_ns" type="car" route="route_ns_through" begin="0" end="3600" vehsPerHour="600" departLane="best" departSpeed="max"/>
+    <flow id="flow_car_sn" type="car" route="route_sn_through" begin="0" end="3600" vehsPerHour="580" departLane="best" departSpeed="max"/>
+    <flow id="flow_car_ew" type="car" route="route_ew_through" begin="0" end="3600" vehsPerHour="550" departLane="best" departSpeed="max"/>
+    <flow id="flow_car_we" type="car" route="route_we_through" begin="0" end="3600" vehsPerHour="570" departLane="best" departSpeed="max"/>
+    <flow id="flow_car_turns_1" type="car" route="route_n_to_e" begin="0" end="3600" vehsPerHour="200" departLane="best" departSpeed="max"/>
+    <flow id="flow_car_turns_2" type="car" route="route_s_to_w" begin="0" end="3600" vehsPerHour="180" departLane="best" departSpeed="max"/>
+    <flow id="flow_car_turns_3" type="car" route="route_e_to_n" begin="0" end="3600" vehsPerHour="190" departLane="best" departSpeed="max"/>
+    <flow id="flow_car_turns_4" type="car" route="route_w_to_s" begin="0" end="3600" vehsPerHour="170" departLane="best" departSpeed="max"/>
+    
+    <!-- Autos/Rickshaws - 15% of traffic -->
+    <flow id="flow_auto_ns" type="auto" route="route_ns_through" begin="0" end="3600" vehsPerHour="120" departLane="best" departSpeed="max"/>
+    <flow id="flow_auto_ew" type="auto" route="route_ew_through" begin="0" end="3600" vehsPerHour="110" departLane="best" departSpeed="max"/>
+    <flow id="flow_auto_turns" type="auto" route="route_n_to_w" begin="0" end="3600" vehsPerHour="80" departLane="best" departSpeed="max"/>
+    
+    <!-- Bikes - 10% of traffic -->
+    <flow id="flow_bike_1" type="bike" route="route_ns_through" begin="0" end="3600" vehsPerHour="100" departLane="best" departSpeed="max"/>
+    <flow id="flow_bike_2" type="bike" route="route_ew_through" begin="0" end="3600" vehsPerHour="90" departLane="best" departSpeed="max"/>
+    <flow id="flow_bike_3" type="bike" route="route_ne_complex" begin="0" end="3600" vehsPerHour="60" departLane="best" departSpeed="max"/>
+    
+    <!-- Buses - 3% of traffic (with stops) -->
+    <flow id="flow_bus_ns" type="bus" route="route_ns_through" begin="0" end="3600" vehsPerHour="30" departLane="best" departSpeed="max"/>
+    <flow id="flow_bus_ew" type="bus" route="route_ew_through" begin="0" end="3600" vehsPerHour="25" departLane="best" departSpeed="max"/>
+    
+    <!-- Trucks - 2% of traffic -->
+    <flow id="flow_truck_1" type="truck" route="route_sn_through" begin="0" end="3600" vehsPerHour="20" departLane="best" departSpeed="max"/>
+    <flow id="flow_truck_2" type="truck" route="route_we_through" begin="0" end="3600" vehsPerHour="15" departLane="best" departSpeed="max"/>
+    
+
+</routes>

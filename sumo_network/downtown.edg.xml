@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Downtown Road Edges with 3 lanes and realistic speed limits -->
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <!-- Main North-South corridor -->
+    <edge id="n_to_center" from="north" to="center" numLanes="3" speed="13.89" priority="9">
+        <lane index="0" allow="all"/>
+        <lane index="1" allow="all"/>
+        <lane index="2" allow="all"/>
+    </edge>
+    <edge id="center_to_n" from="center" to="north" numLanes="3" speed="13.89" priority="9"/>
+    <edge id="center_to_s" from="center" to="south" numLanes="3" speed="13.89" priority="9"/>
+    <edge id="s_to_center" from="south" to="center" numLanes="3" speed="13.89" priority="9"/>
+    
+    <!-- Main East-West corridor -->
+    <edge id="e_to_center" from="east" to="center" numLanes="3" speed="13.89" priority="9"/>
+    <edge id="center_to_e" from="center" to="east" numLanes="3" speed="13.89" priority="9"/>
+    <edge id="center_to_w" from="center" to="west" numLanes="3" speed="13.89" priority="9"/>
+    <edge id="w_to_center" from="west" to="center" numLanes="3" speed="13.89" priority="9"/>
+    
+    <!-- Secondary roads -->
+    <edge id="north_to_ne" from="north" to="northeast" numLanes="2" speed="11.11" priority="7"/>
+    <edge id="ne_to_north" from="northeast" to="north" numLanes="2" speed="11.11" priority="7"/>
+    <edge id="east_to_ne" from="east" to="northeast" numLanes="2" speed="11.11" priority="7"/>
+    <edge id="ne_to_east" from="northeast" to="east" numLanes="2" speed="11.11" priority="7"/>
+    
+    <!-- Entry/Exit roads -->
+    <edge id="n_entry_to_north" from="n_entry" to="north" numLanes="3" speed="13.89" priority="9"/>
+    <edge id="north_to_n_entry" from="north" to="n_entry" numLanes="3" speed="13.89" priority="9"/>
+    <edge id="s_entry_to_south" from="s_entry" to="south" numLanes="3" speed="13.89" priority="9"/>
+    <edge id="south_to_s_entry" from="south" to="s_entry" numLanes="3" speed="13.89" priority="9"/>
+    <edge id="e_entry_to_east" from="e_entry" to="east" numLanes="3" speed="13.89" priority="9"/>
+    <edge id="east_to_e_entry" from="east" to="e_entry" numLanes="3" speed="13.89" priority="9"/>
+    <edge id="w_entry_to_west" from="w_entry" to="west" numLanes="3" speed="13.89" priority="9"/>
+    <edge id="west_to_w_entry" from="west" to="w_entry" numLanes="3" speed="13.89" priority="9"/>
+    <edge id="ne_entry_to_ne" from="ne_entry" to="northeast" numLanes="2" speed="11.11" priority="7"/>
+    <edge id="ne_to_ne_entry" from="northeast" to="ne_entry" numLanes="2" speed="11.11" priority="7"/>
+    <edge id="nw_entry_to_north" from="nw_entry" to="north" numLanes="2" speed="11.11" priority="7"/>
+    <edge id="north_to_nw_entry" from="north" to="nw_entry" numLanes="2" speed="11.11" priority="7"/>
+</edges>

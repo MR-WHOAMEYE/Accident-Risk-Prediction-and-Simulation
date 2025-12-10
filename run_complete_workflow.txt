@@ -1,0 +1,54 @@
+@echo off
+REM Complete Workflow Script
+REM Runs the entire pipeline from simulation to analysis
+
+echo ========================================
+echo ML-Based Accident Risk Prediction
+echo Complete Workflow
+echo ========================================
+echo.
+
+REM Check if SUMO network exists
+if not exist "sumo_network\downtown.net.xml" (
+    echo [1/5] Generating SUMO network...
+    cd sumo_network
+    call generate_network.bat
+    cd ..
+    echo.
+) else (
+    echo [1/5] SUMO network already exists
+    echo.
+)
+
+REM Run simulation
+echo [2/5] Running SUMO simulation...
+echo This may take several minutes...
+python src\run_simulation.py --scenarios 5 --duration 1800
+echo.
+
+REM Check if simulation was successful
+if not exist "data\merged_data.csv" (
+    echo Error: Simulation failed or no data generated
+    pause
+    exit /b 1
+)
+
+REM Run complete analysis
+echo [3/5] Running complete analysis pipeline...
+echo This includes feature engineering, model training, and predictions...
+python src\analyze_complete.py --data data\merged_data.csv
+echo.
+
+REM Generate additional visualizations
+echo [4/5] Analysis complete!
+echo.
+
+REM Launch dashboard
+echo [5/5] Launching interactive dashboard...
+echo.
+echo Dashboard will open in your browser at http://localhost:8501
+echo Press Ctrl+C to stop the dashboard when done
+echo.
+streamlit run src\dashboard.py
+
+pause

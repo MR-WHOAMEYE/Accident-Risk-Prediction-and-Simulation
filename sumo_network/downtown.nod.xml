@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Downtown Road Network with 8 roads and 5 signalized intersections -->
+<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <!-- Intersection nodes -->
+    <node id="center" x="0.0" y="0.0" type="traffic_light"/>
+    <node id="north" x="0.0" y="200.0" type="traffic_light"/>
+    <node id="south" x="0.0" y="-200.0" type="traffic_light"/>
+    <node id="east" x="200.0" y="0.0" type="traffic_light"/>
+    <node id="west" x="-200.0" y="0.0" type="traffic_light"/>
+    <node id="northeast" x="200.0" y="200.0" type="traffic_light"/>
+    
+    <!-- Edge nodes (network boundaries) -->
+    <node id="n_entry" x="0.0" y="400.0" type="priority"/>
+    <node id="s_entry" x="0.0" y="-400.0" type="priority"/>
+    <node id="e_entry" x="400.0" y="0.0" type="priority"/>
+    <node id="w_entry" x="-400.0" y="0.0" type="priority"/>
+    <node id="ne_entry" x="400.0" y="200.0" type="priority"/>
+    <node id="nw_entry" x="-200.0" y="400.0" type="priority"/>
+</nodes>
